@@ -1,0 +1,5 @@
+node_modules/
+.dumi/
+docs-dist/
+.DS_Store
+lerna-debug.log
