@@ -1,0 +1,23 @@
+{
+  "name": "@cgf-tools/pro-max-components",
+  "version": "0.0.0",
+  "description": "基于antd生态的加强组件库",
+  "keywords": [
+    "pro-max-components"
+  ],
+  "author": "chengaofeng <525280067@qq.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/pro-max-components.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/pro-max-components.test.js"
+  },
+  "gitHead": "ffc45b264841c3b889486d14d002d0282393c764"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@cgf-tools/store",
+  "version": "0.0.0",
+  "description": "基于resso的扩展状态管理库",
+  "keywords": [
+    "状态管理"
+  ],
+  "author": "chengaofeng <525280067@qq.com>",
+  "homepage": "http://docs.chengaofeng.cn/store",
+  "license": "MIT",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/store.test.js",
+    "build": "father build",
+    "build:watch": "father dev",
+    "doctor": "father doctor"
+  },
+  "gitHead": "ffc45b264841c3b889486d14d002d0282393c764"
+}
