@@ -5,15 +5,28 @@ nav: 状态管理
 
 # 状态管理
 
+## 特性
+
+- 简单
+- 小巧
+- 易用
+- 高性能
+
+## 待办
+
+- [ ] 中间件
+- [ ] 调试工具
+
 ## 安装
 
 ```bash
 pnpm add @cgf-tools/store
 ```
 
-```jsx
-import store from '@cgf-tools/store';
-console.log(store);
+## 示例
 
-export default () => <>Hello world!</>;
-```
+<code src="./demo.tsx"></code>
+
+## 推荐
+
+- 配合useContext使用

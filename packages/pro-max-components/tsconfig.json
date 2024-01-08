@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "lib": ["ES6", "DOM"],
     "strict": true,
     "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "jsx": "react",
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-      "@cgf-tools/store": ["src"],
-      "@cgf-tools/store/*": ["src/*", "*"]
+      "@cgf-tools/pro-max-components": ["src"],
+      "@cgf-tools/pro-max-components/*": ["src/*", "*"]
     }
   },
   "include": [".dumirc.ts", "src/**/*"]

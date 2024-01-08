@@ -2,7 +2,12 @@ import { defineConfig } from 'dumi';
 
 export default defineConfig({
   themeConfig: {
-    name: '陈高峰',
+    name: '工具集',
+    docDirs: ['docs', 'packages/pro-max-components/docs'],
+    socialLinks: {
+      github: 'https://github.com/cgf520a/cgf-tools',
+    },
+    footer: `Copyright © 2024 | <a href="https://www.chengaofeng.cn/" target="__blank">陈高峰</a> | MIT Licensed`,
   },
   monorepoRedirect: {
     useRootProject: true,
@@ -36,4 +41,8 @@ export default defineConfig({
     // require.resolve('./plugins/maxAppData'),
     // require.resolve('./plugins/maxChecker'),
   ],
+  extraBabelPresets: [
+    ['@babel/preset-react', { runtime: 'automatic', importSource: '@emotion/react' }],
+  ],
+  logo: '/logo.svg',
 });

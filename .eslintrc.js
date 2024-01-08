@@ -31,7 +31,7 @@ module.exports = {
     'no-restricted-globals': 'off',
     'react/no-unknown-property': 'off',
     '@emotion/jsx-import': 'off',
-    '@emotion/pkg-renaming': 'warn',
+    '@emotion/pkg-renaming': 'error',
     'no-unused-vars': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     '@typescript-eslint/no-unused-vars': [

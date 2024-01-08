@@ -23,5 +23,11 @@
     "build:watch": "father dev",
     "doctor": "father doctor"
   },
-  "gitHead": "341fbe704d95c06a51c126ef3f8594a6fa3145a0"
+  "gitHead": "341fbe704d95c06a51c126ef3f8594a6fa3145a0",
+  "dependencies": {
+    "use-sync-external-store": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/use-sync-external-store": "^0.0.6"
+  }
 }

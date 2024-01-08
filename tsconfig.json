@@ -1,14 +1,24 @@
 {
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "strict": true,
     "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "jsx": "react",
     "baseUrl": "./",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-    }
+    },
   },
-  "include": [".dumirc.ts", "packages/**/*"]
+  "include": [".dumirc.ts", "packages/**/*", "docs/**/*", "*.d.ts", "*.ts", "*.tsx"],
 }
