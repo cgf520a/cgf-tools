@@ -20,5 +20,5 @@
       "@@/*": [".dumi/tmp/*"],
     },
   },
-  "include": [".dumirc.ts", "packages/**/*", "docs/**/*", "*.d.ts", "*.ts", "*.tsx"],
+  "include": [".dumirc.ts", "packages/**/*", "docs/**/*", "*.d.ts"],
 }

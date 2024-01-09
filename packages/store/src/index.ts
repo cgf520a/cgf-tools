@@ -25,6 +25,10 @@ let run = (fn: VoidFn) => {
   fn();
 };
 
+type Middleware = <T>(store: Store<T>) => (next: AnyFn) => AnyFn;
+
+let innerMiddlewares: Middleware[] = [];
+
 const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
   type K = keyof Obj;
   type V = Obj[K];
@@ -38,6 +42,8 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
     }
   >;
   type Methods = Record<K, AnyFn>;
+
+  console.log('innerMiddlewares', innerMiddlewares);
 
   if (__DEV__ && !isObj(obj)) {
     throw new Error('object required');
@@ -96,7 +102,7 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
     }
   };
 
-  return new Proxy(
+  const store = new Proxy(
     (() => undefined) as unknown as Store<Obj>,
     {
       get: (_target, key: K) => {
@@ -153,10 +159,20 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
       },
     } as ProxyHandler<Store<Obj>>
   );
+
+  innerMiddlewares.forEach(middleware => {
+    middleware(store);
+  });
+
+  return store;
 };
 
 resso.config = ({ batch }: { batch: typeof run }) => {
   run = batch;
+};
+
+resso.applyMiddlewares = (middlewares: Middleware[]) => {
+  innerMiddlewares = middlewares;
 };
 
 export default resso;

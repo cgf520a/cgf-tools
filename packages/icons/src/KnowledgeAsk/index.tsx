@@ -1,0 +1,19 @@
+import React from 'react';
+import Icon from '@ant-design/icons';
+import { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
+
+const CustomSvg = () => (
+  <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor">
+    <path
+      d="M170.666667 106.666667h682.666666c35.328 0 64 28.629333 64 63.914666v541.44C917.333333 747.349333 888.768 768 853.333333 768h-201.408l-109.504 117.461333a42.730667 42.730667 0 0 1-60.565333-0.021333L371.818667 768H170.666667c-35.328 0-64-20.714667-64-55.978667V170.581333A63.872 63.872 0 0 1 170.666667 106.666667z m170.666666 554.666666V320h-42.666666v341.333333h42.666666z m341.333334-42.666666h-85.333334v42.666666h128V213.333333H426.666667v42.666667h256v362.666667z m-234.666667-106.666667v-128h128v128h-128z m-42.666667-170.666667v213.333334h213.333334V341.333333H405.333333z m-86.613333-148.8l-30.186667 30.165334 75.434667 75.434666 30.165333-30.165333-75.434666-75.434667z"
+      fill="currentColor"
+      p-id="73988"
+    ></path>
+  </svg>
+);
+
+const CustomIcon = (props: Partial<CustomIconComponentProps>) => {
+  return <Icon component={CustomSvg} {...props} />;
+};
+
+export default React.memo(CustomIcon);

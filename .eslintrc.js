@@ -26,6 +26,7 @@ module.exports = {
   plugins: ['react', 'react-hooks', '@typescript-eslint', '@emotion'],
   rules: {
     // 如果有不适合的规则，可以在此调整
+    'react/display-name': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'no-restricted-globals': 'off',

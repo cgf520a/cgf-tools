@@ -13,6 +13,7 @@ var isGetStateInMethod = false;
 var run = function run(fn) {
   fn();
 };
+var innerMiddlewares = [];
 var resso = function resso(obj) {
   if (__DEV__ && !isObj(obj)) {
     throw new Error('object required');
@@ -122,5 +123,8 @@ var resso = function resso(obj) {
 resso.config = function (_ref3) {
   var batch = _ref3.batch;
   run = batch;
+};
+resso.applyMiddlewares = function (middlewares) {
+  innerMiddlewares = middlewares;
 };
 export default resso;

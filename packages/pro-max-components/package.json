@@ -24,9 +24,15 @@
     "doctor": "father doctor"
   },
   "peerDependencies": {
+    "react-copy-to-clipboard": "^5.1.0",
+    "@ant-design/icons": "^5.2.6",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "antd": "^5.0.0"
+    "antd": "^5.0.0",
+    "@ant-design/pro-components": "^2.6.43",
+    "ahooks": "^3.7.8",
+    "@ahooksjs/use-url-state": "^3.5.1",   
+    "@minko-fe/use-antd-resizable-header": "^2.9.0"
   },
   "gitHead": "341fbe704d95c06a51c126ef3f8594a6fa3145a0"
 }

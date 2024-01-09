@@ -1,0 +1,42 @@
+{
+  "name": "@cgf-tools/icons",
+  "version": "0.0.0",
+  "description": "图标管理",
+  "keywords": [
+    "图标"
+  ],
+  "author": "chengaofeng <525280067@qq.com>",
+  "homepage": "https://github.com/cgf520a/cgf-tools#readme",
+  "license": "MIT",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cgf520a/cgf-tools.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/icons.test.js",
+    "build": "father build",
+    "build:watch": "father dev",
+    "doctor": "father doctor"
+  },
+  "peerDependencies": {
+    "react-copy-to-clipboard": "^5.1.0",
+    "@ant-design/icons": "^5.2.6",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "antd": "^5.0.0",
+    "@ant-design/pro-components": "^2.6.43",
+    "ahooks": "^3.7.8"
+  },
+  "bugs": {
+    "url": "https://github.com/cgf520a/cgf-tools/issues"
+  }
+}

@@ -2,10 +2,15 @@
   "name": "root",
   "private": true,
   "devDependencies": {
+    "@ahooksjs/use-url-state": "^3.5.1",
+    "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.43",
+    "@ant-design/pro-form": "^2.23.1",
     "@babel/preset-react": "^7.23.3",
     "@emotion/babel-plugin": "^11.11.0",
     "@emotion/eslint-plugin": "^11.11.0",
     "@emotion/react": "^11.11.3",
+    "@minko-fe/use-antd-resizable-header": "^2.9.0",
     "@testing-library/react": "^14.1.2",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
@@ -13,6 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^6.17.0",
     "@typescript-eslint/parser": "^6.17.0",
     "@umijs/plugins": "^4.1.0",
+    "ahooks": "^3.7.8",
     "antd": "^5.12.7",
     "dumi": "^2.2.16",
     "eslint": "^8.56.0",
@@ -20,6 +26,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "lerna": "^8.0.1",
     "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "vitest": "^1.1.2"
   },
@@ -30,6 +37,7 @@
     "release": "lerna publish"
   },
   "dependencies": {
+    "@cgf-tools/icons": "workspace:^",
     "@cgf-tools/pro-max-components": "workspace:^",
     "@cgf-tools/store": "workspace:^",
     "father": "^4.3.8"
