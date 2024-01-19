@@ -90,6 +90,7 @@ import {
   ResetColumnWidthIcon,
   DSFW,
   SixSide,
+  PhoneIcon,
 } from '@cgf-tools/icons';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -188,6 +189,7 @@ const cMap = {
   ResetColumnWidthIcon,
   DSFW,
   SixSide,
+  PhoneIcon,
 };
 
 const keys = Object.keys(cMap);

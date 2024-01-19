@@ -10,8 +10,8 @@
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-      "@cgf-tools/pro-max-components": ["src"],
-      "@cgf-tools/pro-max-components/*": ["src/*", "*"]
+      "@cgf-tools/icons": ["src"],
+      "@cgf-tools/icons/*": ["src/*", "*"]
     }
   },
   "include": [".dumirc.ts", "src/**/*"]

@@ -5,8 +5,11 @@ function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key i
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 import React from 'react';
+import { Input } from 'antd';
 import { NumberInput } from "../ProFormNumberInput";
+import { PhoneIcon } from '@cgf-tools/icons';
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
+import { jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 var valueTypeMap = {
   numberInput: {
     render: function render(text) {
@@ -16,6 +19,44 @@ var valueTypeMap = {
       return _jsx(NumberInput, _objectSpread({
         placeholder: props === null || props === void 0 ? void 0 : props.placeholder
       }, props === null || props === void 0 ? void 0 : props.fieldProps));
+    }
+  },
+  link: {
+    render: function render(text, props) {
+      var _ref = props,
+        href = _ref.href,
+        target = _ref.target;
+      return _jsx("a", {
+        href: href,
+        target: target,
+        children: text
+      });
+    },
+    renderFormItem: function renderFormItem(text, props) {
+      return _jsx(Input, _objectSpread({
+        placeholder: "\u8BF7\u8F93\u5165\u94FE\u63A5"
+      }, props === null || props === void 0 ? void 0 : props.fieldProps));
+    }
+  },
+  phone: {
+    render: function render(text, props) {
+      var _ref2 = props,
+        iconProps = _ref2.iconProps;
+      return _jsxs("span", {
+        css: {
+          display: 'flex',
+          alignItems: 'center'
+        },
+        children: [_jsx(PhoneIcon, _objectSpread({}, iconProps)), text]
+      });
+    },
+    renderFormItem: function renderFormItem(text, props) {
+      return _jsx(NumberInput, _objectSpread(_objectSpread({
+        placeholder: props === null || props === void 0 ? void 0 : props.placeholder
+      }, props === null || props === void 0 ? void 0 : props.fieldProps), {}, {
+        maxLength: 11,
+        minLength: 11
+      }));
     }
   }
 };

@@ -11,6 +11,8 @@ import React, { useMemo } from 'react';
 import { ProField, ProProvider } from '@ant-design/pro-components';
 import { ProMaxProviderContext } from "../ProMaxProvider";
 import { valueTypeMap as builtInValueTypeMap } from "../share";
+import { useMemoizedFn } from 'ahooks';
+import { Fragment as _Fragment } from "@emotion/react/jsx-runtime";
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 function ProMaxField(props) {
   var valueType = props.valueType,
@@ -32,15 +34,35 @@ function ProMaxField(props) {
     if (typeof valueType === 'string' && keys.includes(valueType)) {
       return undefined;
     }
-    return undefined;
+    return valueType;
   }, [innerValueTypeMap, valueType]);
+  var render = useMemoizedFn(function (text, props, dom) {
+    var _innerValueTypeMap;
+    var fn = (_innerValueTypeMap = innerValueTypeMap[valueType]) === null || _innerValueTypeMap === void 0 ? void 0 : _innerValueTypeMap.render;
+    if (fn) {
+      return fn(text, _objectSpread(_objectSpread({}, props), rest), dom);
+    }
+    return _jsx(_Fragment, {
+      children: "-"
+    });
+  });
+  var renderFormItem = useMemoizedFn(function (text, props, dom) {
+    var _innerValueTypeMap2;
+    var fn = (_innerValueTypeMap2 = innerValueTypeMap[valueType]) === null || _innerValueTypeMap2 === void 0 ? void 0 : _innerValueTypeMap2.renderFormItem;
+    if (fn) {
+      return fn(text, _objectSpread(_objectSpread({}, props), rest), dom);
+    }
+    return _jsx(_Fragment, {
+      children: "-"
+    });
+  });
   return _jsx(ProProvider.Provider, {
     value: value,
     children: innerValueType ? _jsx(ProField, _objectSpread(_objectSpread({}, rest), {}, {
       valueType: innerValueType
     })) : _jsx(ProField, _objectSpread(_objectSpread({}, rest), {}, {
-      render: innerValueTypeMap[valueType].render,
-      renderFormItem: innerValueTypeMap[valueType].renderFormItem
+      render: render,
+      renderFormItem: renderFormItem
     }))
   });
 }

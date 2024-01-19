@@ -21,6 +21,9 @@ const Demo: React.FC<DemoProps> = () => {
       <br />
       <br />
       <Descriptions column={2}>
+        <Descriptions.Item label="手机号">
+          <ProMaxField valueType="phone" text="18888888888" mode={state} />
+        </Descriptions.Item>
         <Descriptions.Item label="数字文本输入">
           <ProMaxField valueType="numberInput" text="18888888888" mode={state} />
         </Descriptions.Item>

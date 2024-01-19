@@ -20,5 +20,5 @@
       "@cgf-tools/pro-max-components/*": ["src/*", "*"]
     }
   },
-  "include": [".dumirc.ts", "src/**/*","packages/**/*"]
+  "include": [".dumirc.ts", "src/**/*"]
 }

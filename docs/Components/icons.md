@@ -14,3 +14,7 @@ order: 0
 ## 自定义图标
 
 <code src="./demos/icons/demo2.tsx"></code>
+
+## 系统组彩色图标
+
+<code src="./demos/icons/demo3.tsx"></code>

@@ -37,5 +37,9 @@
     "dayjs": "^1.11.10",
     "axios": "^1.6.5"
   },
+  "dependencies": {
+    "@cgf-tools/icons": "workspace:^",
+    "@cgf-tools/store": "workspace:^"
+  },
   "gitHead": "341fbe704d95c06a51c126ef3f8594a6fa3145a0"
 }

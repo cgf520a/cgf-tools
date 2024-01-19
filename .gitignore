@@ -3,3 +3,5 @@ node_modules/
 docs-dist/
 .DS_Store
 lerna-debug.log
+lib/
+es/

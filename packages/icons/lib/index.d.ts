@@ -88,3 +88,4 @@ export { default as ResetColumnWidthIcon } from './ResetColumnWidthIcon';
 export { default as DSFW } from './DSFW';
 export { default as SixSide } from './SixSide';
 export { default as CustomIcon } from './CustomIcon';
+export { default as PhoneIcon } from './PhoneIcon';
