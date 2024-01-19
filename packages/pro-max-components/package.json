@@ -32,7 +32,10 @@
     "@ant-design/pro-components": "^2.6.43",
     "ahooks": "^3.7.8",
     "@ahooksjs/use-url-state": "^3.5.1",   
-    "@minko-fe/use-antd-resizable-header": "^2.9.0"
+    "@minko-fe/use-antd-resizable-header": "^2.9.0",
+    "@ant-design/pro-form": "^2.24.1",    
+    "dayjs": "^1.11.10",
+    "axios": "^1.6.5"
   },
   "gitHead": "341fbe704d95c06a51c126ef3f8594a6fa3145a0"
 }

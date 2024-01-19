@@ -1,18 +1,24 @@
 {
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "lib": ["ES6", "DOM"],
     "strict": true,
     "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "baseUrl": "./",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@@/*": [".dumi/tmp/*"],
       "@cgf-tools/pro-max-components": ["src"],
       "@cgf-tools/pro-max-components/*": ["src/*", "*"]
     }
   },
-  "include": [".dumirc.ts", "src/**/*"]
+  "include": [".dumirc.ts", "src/**/*","packages/**/*"]
 }

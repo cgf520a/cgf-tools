@@ -6,7 +6,7 @@ type AnyFn = (...args: unknown[]) => unknown;
 type OneAction<V> = V | ((val: V) => V);
 type ObjUpdater<Obj> = (obj: Obj) => Partial<Obj>;
 
-type Setter<Obj> = {
+export type Setter<Obj> = {
   <K extends keyof Obj>(key: K, oneAction: OneAction<Obj[K]>): void;
   (obj: Partial<Obj>): void;
   (objUpdater: ObjUpdater<Obj>): void;
@@ -20,14 +20,43 @@ const isObj = (val: unknown) => {
   return Object.prototype.toString.call(val) === '[object Object]';
 };
 
+const STATA_CHANGE = Symbol('STATA_CHANGE');
 let isGetStateInMethod = false;
 let run = (fn: VoidFn) => {
   fn();
 };
 
-type Middleware = <T>(store: Store<T>) => (next: AnyFn) => AnyFn;
+type SetFn<T> = (params: { key: keyof T; val: unknown; type?: string; payload?: unknown }) => void;
+
+type NextFn<T> = (next: SetFn<T>) => SetFn<T>;
+
+type GetStateFn<K> = () => K;
+
+export type Middleware = <T>(params: {
+  getState: GetStateFn<unknown>;
+  dispatch: SetFn<T>;
+}) => NextFn<T>;
 
 let innerMiddlewares: Middleware[] = [];
+
+export type ReducerFn<T> = (store: Store<T>, action: { type: string; payload?: unknown }) => T;
+let innerReducer: ReducerFn<any> | undefined = undefined;
+
+export function compose<T>(...funcs: NextFn<T>[]) {
+  if (funcs.length === 0) {
+    return (arg: any) => arg;
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce(
+    (a, b) =>
+      (...args) =>
+        a(b(...args))
+  );
+}
 
 const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
   type K = keyof Obj;
@@ -42,8 +71,6 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
     }
   >;
   type Methods = Record<K, AnyFn>;
-
-  console.log('innerMiddlewares', innerMiddlewares);
 
   if (__DEV__ && !isObj(obj)) {
     throw new Error('object required');
@@ -89,11 +116,35 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
     };
   });
 
-  const setState = (key: K, val: unknown | OneAction<V>) => {
-    if (key in obj) {
+  // 记录状态变更
+  let oldObj = { ...obj };
+  let store = {} as Store<Obj>;
+
+  let setState = ({
+    key,
+    val,
+    type = STATA_CHANGE,
+    ...payload
+  }: {
+    key: K;
+    val: unknown | OneAction<V>;
+    type?: string | Symbol;
+    payload?: unknown;
+  }) => {
+    if (type !== STATA_CHANGE && innerReducer) {
+      // 暂时如此处理，后续再优化
+      innerReducer(store, { type: type as string, payload });
+    } else if (key in obj) {
       if (key in state) {
         const newVal = val instanceof Function ? val(obj[key]) : val;
         state[key].setSnapshot(newVal as V);
+        oldObj = { ...obj };
+        return {
+          key,
+          val: newVal,
+          type,
+          payload,
+        };
       } else if (__DEV__) {
         throw new Error(`\`${key as string}\` is a method, can not update`);
       }
@@ -102,7 +153,24 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
     }
   };
 
-  const store = new Proxy(
+  // 适配redux中间件
+  const getState: GetStateFn<Obj> = () => {
+    return oldObj;
+  };
+
+  // 用于适配redux中间件，不应该给外部使用，违背此库的设计初衷
+  let dispatch: typeof setState = setState;
+
+  const chain = innerMiddlewares.map(middleware =>
+    middleware({
+      getState,
+      dispatch,
+    })
+  );
+  setState = compose(...chain)(setState);
+  dispatch = setState;
+
+  store = new Proxy(
     (() => undefined) as unknown as Store<Obj>,
     {
       get: (_target, key: K) => {
@@ -129,7 +197,11 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
         }
       },
       set: (_target, key: K, val: V) => {
-        setState(key, val);
+        dispatch({
+          key,
+          val,
+          type: STATA_CHANGE,
+        });
         return true;
       },
       apply: (
@@ -138,14 +210,22 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
         [firstArg, oneAction]: [K | Obj | ObjUpdater<Obj>, OneAction<V>]
       ) => {
         if (typeof firstArg === 'string') {
-          setState(firstArg, oneAction);
+          setState({
+            key: firstArg,
+            val: oneAction,
+            type: STATA_CHANGE,
+          });
           return;
         }
 
         if (isObj(firstArg)) {
           const newObj = firstArg as Obj;
           Object.keys(newObj).forEach(key => {
-            setState(key, newObj[key]);
+            setState({
+              key,
+              val: newObj[key],
+              type: STATA_CHANGE,
+            });
           });
           return;
         }
@@ -153,16 +233,16 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
         if (typeof firstArg === 'function') {
           const newObj = firstArg(obj);
           Object.keys(newObj).forEach(key => {
-            setState(key, newObj[key]);
+            setState({
+              key,
+              val: newObj[key],
+              type: STATA_CHANGE,
+            });
           });
         }
       },
     } as ProxyHandler<Store<Obj>>
   );
-
-  innerMiddlewares.forEach(middleware => {
-    middleware(store);
-  });
 
   return store;
 };
@@ -171,8 +251,10 @@ resso.config = ({ batch }: { batch: typeof run }) => {
   run = batch;
 };
 
-resso.applyMiddlewares = (middlewares: Middleware[]) => {
+// reducer给中间件用，适配redux中间件
+resso.applyMiddlewares = <T>(middlewares: Middleware[], reducer?: ReducerFn<T>) => {
   innerMiddlewares = middlewares;
+  innerReducer = reducer;
 };
 
 export default resso;
