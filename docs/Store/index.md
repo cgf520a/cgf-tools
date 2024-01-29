@@ -14,8 +14,16 @@ nav: 状态管理
 
 ## 待办
 
-- [ ] 中间件
+- [x] 中间件
 - [ ] 调试工具
+- [x] atom、selector、
+- [ ] atomFamily、selectorFamily
+- [x] use
+- [ ] 不使用Suspense的直接返回，不throw Promise
+- [ ] 同步与异步使用方式统一
+- [ ] 功能的添加应该从使用角度出发，如有必要再加
+- [ ] hooks
+- [ ] 补测试用例
 
 ## 安装
 
@@ -25,7 +33,7 @@ pnpm add @cgf-tools/store
 
 ## 示例
 
-<code src="./demo.tsx"></code>
+<code src="./demos/demo.tsx"></code>
 
 ## 推荐
 

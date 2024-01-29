@@ -6,15 +6,15 @@ order: 1
 
 ## 基本使用
 
-<code src="./demo1.tsx"></code>
+<code src="./demos/demo1.tsx"></code>
 
 ## Redux-logger
 
-<code src="./demo2.tsx"></code>
+<code src="./demos/demo2.tsx"></code>
 
 ## 中间件Reducer 开发中，暂时不要用
 
-<code src="./demo3.tsx"></code>
+<code src="./demos/demo3.tsx"></code>
 
 ## 待办
 
@@ -24,6 +24,6 @@ order: 1
 
 ## 思考
 
-1. 计算属性有必要加吗？
-2. watch?
-3. dispatch 和 reducer 有必要加嘛？
+1. 计算属性有必要加吗？没必要，使用recoil思想，seletor实现
+2. watch? 参考recoil思想
+3. dispatch 和 reducer 有必要加嘛？没必要了，除非要适配中间件

@@ -18,7 +18,7 @@
     "lib"
   ],
   "scripts": {
-    "test": "node ./__tests__/store.test.js",
+    "test": "vitest",
     "build": "father build",
     "build:watch": "father dev",
     "doctor": "father doctor"

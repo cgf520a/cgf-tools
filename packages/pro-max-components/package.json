@@ -34,7 +34,8 @@
     "@ahooksjs/use-url-state": "^3.5.1",   
     "@minko-fe/use-antd-resizable-header": "^2.9.0",
     "@ant-design/pro-form": "^2.24.1",    
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.10", 
+    "swr": "^2.2.4",
     "axios": "^1.6.5"
   },
   "dependencies": {

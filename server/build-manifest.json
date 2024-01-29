@@ -1,0 +1,9 @@
+{
+  "assets": {
+    "public/.DS_Store": "/.DS_Store",
+    "public/logo.svg": "/logo.svg",
+    "public/api/env.json": "/api/env.json",
+    "umi.css": "/umi.b57fc952.css",
+    "umi.js": "/umi.59ee01f2.server.js"
+  }
+}

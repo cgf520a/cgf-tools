@@ -5,3 +5,4 @@ docs-dist/
 lerna-debug.log
 lib/
 es/
+dist/

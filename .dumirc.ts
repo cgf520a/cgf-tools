@@ -45,4 +45,5 @@ export default defineConfig({
     ['@babel/preset-react', { runtime: 'automatic', importSource: '@emotion/react' }],
   ],
   logo: '/logo.svg',
+  // ssr: {},
 });

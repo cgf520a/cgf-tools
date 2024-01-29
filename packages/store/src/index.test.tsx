@@ -37,6 +37,7 @@ test('resso', () => {
 
   expect(() => {
     // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { a } = store;
   }).toThrow();
 

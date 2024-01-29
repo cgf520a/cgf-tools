@@ -12,7 +12,7 @@ export type Setter<Obj> = {
   (objUpdater: ObjUpdater<Obj>): void;
 };
 
-export type Store<Obj> = Obj & Setter<Obj>;
+export type Store<Obj> = Obj & Setter<Obj> & { register: (obj: Obj) => void };
 
 const __DEV__ = process.env.NODE_ENV !== 'production';
 
@@ -79,43 +79,47 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
   const state: State = {} as State;
   const methods: Methods = {} as Methods;
 
-  Object.keys(obj).forEach((key: K) => {
-    const initVal = obj[key];
+  const register = (__obj: Obj) => {
+    Object.keys(__obj).forEach((key: K) => {
+      const initVal = __obj[key];
 
-    if (initVal instanceof Function) {
-      methods[key] = (...args: unknown[]) => {
-        isGetStateInMethod = true;
-        const res = initVal(...args);
-        isGetStateInMethod = false;
-        return res;
-      };
-      return;
-    }
+      if (initVal instanceof Function && !(key in methods)) {
+        methods[key] = (...args: unknown[]) => {
+          isGetStateInMethod = true;
+          const res = initVal(...args);
+          isGetStateInMethod = false;
+          return res;
+        };
+        return;
+      }
 
-    const listeners = new Set<VoidFn>();
+      const listeners = new Set<VoidFn>();
 
-    state[key] = {
-      subscribe: listener => {
-        listeners.add(listener);
-        return () => listeners.delete(listener);
-      },
-      getSnapshot: () => obj[key],
-      setSnapshot: val => {
-        if (val !== obj[key]) {
-          obj[key] = val;
-          run(() => listeners.forEach(listener => listener()));
-        }
-      },
-      useSnapshot: () => {
-        return useSyncExternalStore(
-          state[key].subscribe,
-          state[key].getSnapshot,
-          state[key].getSnapshot
-        );
-      },
-    };
-  });
-
+      if (!(key in state)) {
+        state[key] = {
+          subscribe: listener => {
+            listeners.add(listener);
+            return () => listeners.delete(listener);
+          },
+          getSnapshot: () => __obj[key],
+          setSnapshot: val => {
+            if (val !== __obj[key]) {
+              __obj[key] = val;
+              run(() => listeners.forEach(listener => listener()));
+            }
+          },
+          useSnapshot: () => {
+            return useSyncExternalStore(
+              state[key].subscribe,
+              state[key].getSnapshot,
+              state[key].getSnapshot
+            );
+          },
+        };
+      }
+    });
+  };
+  register(obj);
   // 记录状态变更
   let oldObj = { ...obj };
   let store = {} as Store<Obj>;
@@ -131,25 +135,27 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
     type?: string | Symbol;
     payload?: unknown;
   }) => {
-    if (type !== STATA_CHANGE && innerReducer) {
-      // 暂时如此处理，后续再优化
-      innerReducer(store, { type: type as string, payload });
-    } else if (key in obj) {
-      if (key in state) {
-        const newVal = val instanceof Function ? val(obj[key]) : val;
-        state[key].setSnapshot(newVal as V);
-        oldObj = { ...obj };
-        return {
-          key,
-          val: newVal,
-          type,
-          payload,
-        };
+    if (key !== 'register') {
+      if (type !== STATA_CHANGE && innerReducer) {
+        // 暂时如此处理，后续再优化
+        innerReducer(store, { type: type as string, payload });
+      } else if (key in state || key in methods) {
+        if (key in state) {
+          const newVal = val instanceof Function ? val(obj[key]) : val;
+          state[key].setSnapshot(newVal as V);
+          oldObj = { ...obj };
+          return {
+            key,
+            val: newVal,
+            type,
+            payload,
+          };
+        } else if (__DEV__) {
+          throw new Error(`\`${key as string}\` is a method, can not update`);
+        }
       } else if (__DEV__) {
-        throw new Error(`\`${key as string}\` is a method, can not update`);
+        throw new Error(`\`${key as string}\` is not initialized in store`);
       }
-    } else if (__DEV__) {
-      throw new Error(`\`${key as string}\` is not initialized in store`);
     }
   };
 
@@ -174,10 +180,16 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
     (() => undefined) as unknown as Store<Obj>,
     {
       get: (_target, key: K) => {
+        if (key === 'register') {
+          return (rObj: Obj) => {
+            register(rObj);
+            oldObj = { ...oldObj, ...rObj };
+          };
+        }
+
         if (key in methods) {
           return methods[key];
         }
-
         if (key in state) {
           if (isGetStateInMethod) {
             return obj[key];
@@ -189,14 +201,21 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
             return obj[key];
           }
         }
-
         if (__DEV__) {
-          if (key !== 'prototype' && key !== 'name' && key !== 'displayName') {
+          if (
+            key !== 'register' &&
+            key !== 'prototype' &&
+            key !== 'name' &&
+            key !== 'displayName'
+          ) {
             throw new Error(`\`${key as string}\` is not initialized in store`);
           }
         }
       },
       set: (_target, key: K, val: V) => {
+        if (key === 'register') {
+          throw new Error(`register is readonly`);
+        }
         dispatch({
           key,
           val,
@@ -210,6 +229,9 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
         [firstArg, oneAction]: [K | Obj | ObjUpdater<Obj>, OneAction<V>]
       ) => {
         if (typeof firstArg === 'string') {
+          if (firstArg === 'register') {
+            throw new Error(`register is readonly`);
+          }
           setState({
             key: firstArg,
             val: oneAction,
@@ -221,6 +243,9 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
         if (isObj(firstArg)) {
           const newObj = firstArg as Obj;
           Object.keys(newObj).forEach(key => {
+            if (key === 'register') {
+              throw new Error(`register is readonly`);
+            }
             setState({
               key,
               val: newObj[key],
@@ -233,6 +258,9 @@ const resso = <Obj extends Record<string, unknown>>(obj: Obj): Store<Obj> => {
         if (typeof firstArg === 'function') {
           const newObj = firstArg(obj);
           Object.keys(newObj).forEach(key => {
+            if (key === 'register') {
+              throw new Error(`register is readonly`);
+            }
             setState({
               key,
               val: newObj[key],
@@ -256,5 +284,9 @@ resso.applyMiddlewares = <T>(middlewares: Middleware[], reducer?: ReducerFn<T>) 
   innerMiddlewares = middlewares;
   innerReducer = reducer;
 };
+
+export * from './hooks';
+export { default as atom } from './atom';
+export { default as selector } from './selector';
 
 export default resso;
