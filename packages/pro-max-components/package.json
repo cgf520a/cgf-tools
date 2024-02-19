@@ -1,6 +1,6 @@
 {
   "name": "@cgf-tools/pro-max-components",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.2-alpha.0",
   "description": "基于antd生态的加强组件库",
   "keywords": [
     "pro-max-components"
@@ -24,19 +24,19 @@
     "doctor": "father doctor"
   },
   "peerDependencies": {
-    "react-copy-to-clipboard": "^5.1.0",
+    "@ahooksjs/use-url-state": "^3.5.1",
     "@ant-design/icons": "^5.2.6",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "antd": "^5.0.0",
     "@ant-design/pro-components": "^2.6.43",
-    "ahooks": "^3.7.8",
-    "@ahooksjs/use-url-state": "^3.5.1",   
+    "@ant-design/pro-form": "^2.24.1",
     "@minko-fe/use-antd-resizable-header": "^2.9.0",
-    "@ant-design/pro-form": "^2.24.1",    
-    "dayjs": "^1.11.10", 
-    "swr": "^2.2.4",
-    "axios": "^1.6.5"
+    "ahooks": "^3.7.8",
+    "antd": "^5.0.0",
+    "axios": "^1.6.5",
+    "dayjs": "^1.11.10",
+    "react": "^16.8.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^16.8.0",
+    "swr": "^2.2.4"
   },
   "dependencies": {
     "@cgf-tools/icons": "workspace:^",

@@ -1,6 +1,6 @@
 {
   "name": "@cgf-tools/icons",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "图标管理",
   "keywords": [
     "图标"
@@ -28,13 +28,13 @@
     "doctor": "father doctor"
   },
   "peerDependencies": {
-    "react-copy-to-clipboard": "^5.1.0",
     "@ant-design/icons": "^5.2.6",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "antd": "^5.0.0",
     "@ant-design/pro-components": "^2.6.43",
-    "ahooks": "^3.7.8"
+    "ahooks": "^3.7.8",
+    "antd": "^5.0.0",
+    "react": "^16.8.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^16.8.0"
   },
   "bugs": {
     "url": "https://github.com/cgf520a/cgf-tools/issues"
