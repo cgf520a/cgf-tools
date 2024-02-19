@@ -16,3 +16,11 @@ order: 1
 ## 异步状态
 
 <code src="./demos/demo6.tsx"></code>
+
+## 依赖更新，重新请求
+
+<code src="./demos/demo7.tsx"></code>
+
+<!-- ## 异步状态 不使用Suspense
+
+<code src="./demos/demo8.tsx"></code> -->

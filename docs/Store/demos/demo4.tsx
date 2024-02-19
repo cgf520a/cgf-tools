@@ -16,6 +16,9 @@ const Demo = () => {
         <Button type="primary" onClick={() => setCount(count + 1)}>
           加1
         </Button>
+        <Button type="primary" onClick={() => setCount(c => c + 2)}>
+          回调加2
+        </Button>
         <Button type="primary" danger onClick={() => setCount(count - 1)}>
           减1
         </Button>

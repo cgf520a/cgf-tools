@@ -21,4 +21,5 @@
     },
   },
   "include": [".dumirc.ts", "packages/**/*", "docs/**/*", "docs/**/**/*"],
+  "exclude": ["draft/**/*"]
 }

@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { selectAndSearchComponentMap } from '@cgf-tools/pro-max-components/share';
-import ProFormInputSuspense from '../ProFormInputSuspense';
-import { useGlobalStoreMemoOptions } from '../GlobalStore';
-import type { ProFormInputSkeletonProps } from '../ProFormInputSkeleton';
+import ProFormInputSuspense from '@cgf-tools/pro-max-components/src/ProFormInputSuspense';
+import { useGlobalStoreMemoOptions } from '@cgf-tools/pro-max-components/src/GlobalStore';
+import type { ProFormInputSkeletonProps } from '@cgf-tools/pro-max-components/src/ProFormInputSkeleton';
 import type {
   ProFormSelectProps,
   ProFormTreeSelectProps,
@@ -62,9 +62,7 @@ function useSuspenseValue<T>(promise?: Promise<T>) {
   }
 }
 
-function wrapPromise(promise: any) {
-
-}
+function wrapPromise(promise: any) {}
 
 function fetchData<T>(request: () => Promise<T>, params?: any) {
   const promise = request();

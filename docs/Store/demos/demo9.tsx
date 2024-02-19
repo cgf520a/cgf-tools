@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react';
-import { Select, Skeleton } from 'antd';
-import { selector, use } from '@cgf-tools/store';
+import { Select, Skeleton, Button } from 'antd';
+import { selector, use, refresh } from '@cgf-tools/store';
 import axios from 'axios';
 
 const envQuery = selector({
-  key: 'env',
+  key: 'envRefresh',
   get: async () => {
     const options = await axios.get('/api/env.json').then(res => res.data);
     await new Promise(resolve => {
@@ -23,9 +23,14 @@ const EnvSelect = () => {
 
 const Demo = () => {
   return (
-    <Suspense fallback={<Skeleton.Input active css={{ width: 200 }} />}>
-      <EnvSelect />
-    </Suspense>
+    <>
+      <Button type="primary" onClick={() => refresh('envRefresh')}>
+        重新请求
+      </Button>
+      <Suspense fallback={<Skeleton.Input active css={{ width: 200 }} />}>
+        <EnvSelect />
+      </Suspense>
+    </>
   );
 };
 

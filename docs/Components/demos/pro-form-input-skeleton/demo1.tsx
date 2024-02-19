@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Space } from 'antd';
-import { ProFormInputSkeleton, ProFormMemoSelect } from '@cgf-tools/pro-max-components';
+import { ProFormInputSkeleton } from '@cgf-tools/pro-max-components';
 import axios from 'axios';
 
 const request = async () => {
@@ -35,14 +35,14 @@ const Demo: React.FC<DemoProps> = () => {
           改变依赖2
         </Button>
       </Space>
-      <ProFormMemoSelect
+      {/* <ProFormMemoSelect
         width="md"
         label="环境"
         name="env"
         placeholder="请选择环境"
         dependencies={[dep1, dep2]}
         request={request}
-      />
+      /> */}
     </>
   );
 };

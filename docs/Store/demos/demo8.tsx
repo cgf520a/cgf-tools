@@ -4,7 +4,7 @@ import { selector, use } from '@cgf-tools/store';
 import axios from 'axios';
 
 const envQuery = selector({
-  key: 'env',
+  key: 'envPromise',
   get: async () => {
     const options = await axios.get('/api/env.json').then(res => res.data);
     await new Promise(resolve => {
@@ -17,16 +17,19 @@ const envQuery = selector({
 });
 
 const EnvSelect = () => {
-  const options = use(envQuery);
-  return <Select placeholder="请选择环境" css={{ width: 200 }} options={options} />;
+  const promise = use(envQuery);
+
+  console.log(promise);
+
+  if (promise?.status === 'fulfilled') {
+    return <Select placeholder="请选择环境" css={{ width: 200 }} options={promise.value} />;
+  } else {
+    return 'loading...';
+  }
 };
 
 const Demo = () => {
-  return (
-    <Suspense fallback={<Skeleton.Input active css={{ width: 200 }} />}>
-      <EnvSelect />
-    </Suspense>
-  );
+  return <EnvSelect />;
 };
 
 export default Demo;

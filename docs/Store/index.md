@@ -15,15 +15,17 @@ nav: 状态管理
 ## 待办
 
 - [x] 中间件
-- [ ] 调试工具
 - [x] atom、selector、
-- [ ] atomFamily、selectorFamily
 - [x] use
-- [ ] 不使用Suspense的直接返回，不throw Promise
-- [ ] 同步与异步使用方式统一
-- [ ] 功能的添加应该从使用角度出发，如有必要再加
-- [ ] hooks
+- [x] selectorFamily
+- [ ] 调试工具
+- [ ] 不过度设计，功能的添加应该从使用角度出发，如有必要再加
 - [ ] 补测试用例
+- [ ] 把要实现的功能都实现，然后再写单元测试与集成测试优化
+  <!-- - [ ] atomFamily -->
+  <!-- - [ ] 不使用Suspense的直接返回，不throw Promise -->
+  <!-- - [ ] 同步与异步使用方式统一 -->
+  <!-- - [ ] hooks -->
 
 ## 安装
 

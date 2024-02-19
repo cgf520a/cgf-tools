@@ -2,7 +2,9 @@ import React from 'react';
 import createStore from '@cgf-tools/store';
 import type { Middleware, Store } from '@cgf-tools/store';
 
-export const ProMaxStoreContext = React.createContext<Store<unknown> | undefined>(undefined);
+export const ProMaxStoreContext = React.createContext<Store<Record<string, unknown>> | undefined>(
+  undefined
+);
 
 export interface ProMaxStoreProps<T extends Record<string, unknown>> {
   initialState: T;
@@ -16,7 +18,7 @@ function ProMaxStore<T extends Record<string, unknown>>(props: ProMaxStoreProps<
   const state = React.useMemo(() => {
     createStore.applyMiddlewares(middlewares || []);
 
-    return createStore<T>(initialState);
+    return createStore<Record<string, unknown>>(initialState);
   }, [initialState, middlewares]);
 
   return <ProMaxStoreContext.Provider value={state}>{children}</ProMaxStoreContext.Provider>;

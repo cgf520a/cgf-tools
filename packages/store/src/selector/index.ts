@@ -1,13 +1,14 @@
 import atomMap from '../hooks/atomMap';
 import selectorMap from '../hooks/selectorMap';
 import { STORE_SELECTOR } from '../share';
+import { refresh } from '../hooks/use';
 import type { Store } from '../index';
-import type { StoreState, MPromise } from '../hooks/use';
+import type { StoreSelector, MPromise } from '../hooks/use';
 
 function selector<T>(options: {
   key: string;
-  get: (store: Store<unknown>) => T | MPromise<T>;
-}): StoreState<T> {
+  get: (store: Store<Record<string, unknown>>) => T | MPromise<T>;
+}): StoreSelector<T> {
   if (atomMap.has(options.key)) {
     throw new Error(`atom ${options.key} already exists`);
   }
@@ -22,6 +23,39 @@ function selector<T>(options: {
     key: options.key,
     default: undefined,
     get: options.get,
+  };
+}
+
+type Parameter = string | number | boolean | Record<string, unknown>;
+
+export function selectorFamily<T>(options: {
+  key: string;
+  get: (
+    params: Parameter | Parameter[]
+  ) => (store: Store<Record<string, unknown>>, ...args: any[]) => T | MPromise<T>;
+}): (p: Parameter | Parameter[]) => StoreSelector<T> {
+  if (atomMap.has(options.key)) {
+    throw new Error(`atom ${options.key} already exists`);
+  }
+  if (selectorMap.has(options.key)) {
+    throw new Error(`selector ${options.key} already exists`);
+  }
+
+  selectorMap.set(options.key, undefined);
+
+  let cache = '';
+
+  return params => {
+    if (cache !== JSON.stringify(params)) {
+      refresh(options.key);
+      cache = JSON.stringify(params);
+    }
+    return {
+      $$typeof: STORE_SELECTOR,
+      key: options.key,
+      default: undefined,
+      get: options.get(params),
+    };
   };
 }
 
