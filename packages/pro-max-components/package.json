@@ -39,8 +39,8 @@
     "swr": "^2.2.4"
   },
   "dependencies": {
-    "@cgf-tools/icons": "workspace:^",
-    "@cgf-tools/store": "workspace:^"
+    "@cgf-tools/icons": "^0.0.1-alpha.0",
+    "@cgf-tools/store": "^0.0.2-alpha.0"
   },
-  "gitHead": "341fbe704d95c06a51c126ef3f8594a6fa3145a0"
+  "gitHead": "3fd03c845ca707a6db114bb2f5297936c9a8de7a"
 }

@@ -6,3 +6,4 @@ lerna-debug.log
 lib/
 es/
 dist/
+pub.sh
