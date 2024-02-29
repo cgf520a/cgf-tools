@@ -4,7 +4,7 @@
   "devDependencies": {
     "@ahooksjs/use-url-state": "^3.5.1",
     "@ant-design/icons": "^5.2.6",
-    "@ant-design/pro-components": "^2.6.46",
+    "@ant-design/pro-components": "^2.6.49",
     "@ant-design/pro-form": "^2.24.1",
     "@babel/preset-react": "^7.23.3",
     "@emotion/babel-plugin": "^11.11.0",

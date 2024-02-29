@@ -15,7 +15,7 @@ export const WIDTH_SIZE_ENUM = {
 };
 
 export { default as valueTypeMap } from './valueTypeMap';
-export { default as selectAndSearchComponentMap } from './selectAndSearchComponentMap';
+export { default as SelectAndSearchComponentMap } from './selectAndSearchComponentMap';
 export { default as fetchSuspenseData, wrapPromise } from './fetchSuspenseData';
 
 export type * from './selectAndSearchComponentMap';

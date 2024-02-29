@@ -49,7 +49,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({
           responseType: 'blob',
           method,
           params: exportParams === false ? undefined : exportParams,
-        }).then((res) => {
+        }).then(res => {
           const blob = new Blob([res.data]);
           const urlObject = window.URL || window.webkitURL || window;
           const downloadElement = document.createElement('a');
@@ -62,7 +62,17 @@ const ExportButton: React.FC<ExportButtonProps> = ({
           urlObject.revokeObjectURL(href); //释放掉blob对象
         });
       } else if (exportMode === 'window') {
-        window.open(exportUrl);
+        const obj: Record<string, any> = {};
+        if (exportParams) {
+          Object.keys(exportParams).forEach(key => {
+            if (exportParams[key] !== undefined) {
+              obj[key] = exportParams[key];
+            }
+          });
+        }
+        const searchParams =
+          (Object.keys(obj).length ? '?' : '') + new URLSearchParams(obj).toString();
+        window.open(exportUrl + searchParams);
       }
     }
     onExport?.(exportParams === false ? undefined : exportParams);

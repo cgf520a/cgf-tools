@@ -29,12 +29,12 @@ group:
 
 ## 待办
 
-- [ ] 可用于全局注册组件的配置，用于外部注入业务组件 ProProvider.Provider 基于其扩展
-- [ ] ProMax 表单组件
-- [ ] ProMax 表单下拉组件
-- [ ] ProMax 表单下拉搜索组件，防抖等
+- [x] 可用于全局注册组件的配置，用于外部注入业务组件 ProProvider.Provider 基于其扩展
+- [x] ProMax 表单组件
+- [x] ProMax 表单下拉组件
+- [x] ProMax 表单下拉搜索组件，防抖等
 - [ ] ProMax 登录页面级组件，集成企微、手机、微信、帐密等登录功能
 - [ ] ProMaxField 将自定义的valueType类型封装进去
 - [ ] ProMaxTable
-- [ ] ProMaxFormItemSkeleton
+- [x] ProMaxFormItemSkeleton
 - [x] 导入按钮、导出按钮，常用按钮

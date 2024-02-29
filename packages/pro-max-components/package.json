@@ -26,7 +26,7 @@
   "peerDependencies": {
     "@ahooksjs/use-url-state": "^3.5.1",
     "@ant-design/icons": "^5.2.6",
-    "@ant-design/pro-components": "^2.6.43",
+    "@ant-design/pro-components": "^2.6.49",
     "@ant-design/pro-form": "^2.24.1",
     "@minko-fe/use-antd-resizable-header": "^2.9.0",
     "ahooks": "^3.7.8",
@@ -35,8 +35,7 @@
     "dayjs": "^1.11.10",
     "react": "^16.8.0",
     "react-copy-to-clipboard": "^5.1.0",
-    "react-dom": "^16.8.0",
-    "swr": "^2.2.4"
+    "react-dom": "^16.8.0"
   },
   "dependencies": {
     "@cgf-tools/icons": "^0.0.1-alpha.0",

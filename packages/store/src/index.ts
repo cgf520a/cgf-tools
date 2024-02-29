@@ -311,4 +311,6 @@ export * from './hooks';
 export { default as atom } from './atom';
 export { default as selector, selectorFamily } from './selector';
 
+export type { MPromise } from './hooks/use';
+
 export default resso;

@@ -7,6 +7,9 @@ export { default as ProMaxField } from './ProMaxField';
 export { default as ProFormInputSkeleton } from './ProFormInputSkeleton';
 export { default as ProFormInputSuspense } from './ProFormInputSuspense';
 export { default as ProFormSearchSelect } from './ProFormSearchSelect';
+export { default as ProFormMemoSelect } from './ProFormMemoSelect';
+export { default as ProMaxTable } from './ProMaxTable';
+export { default as PreComponent } from './PreComponent';
 
 export * from './Button';
 export * from './GlobalStore';
@@ -19,3 +22,5 @@ export type { ProFormInputSuspenseProps } from './ProFormInputSuspense';
 export type { ProFormSearchSelectProps } from './ProFormSearchSelect';
 export type { ProFormNumberInputProps } from './ProFormNumberInput';
 export type { DividerGroupProps } from './DividerGroup';
+export type { ProFormMemoSelectProps } from './ProFormMemoSelect';
+export type { ProMaxTableProps } from './ProMaxTable';

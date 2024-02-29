@@ -31,8 +31,8 @@ export type StoreAtom<T = unknown> = {
 export type StoreSelector<T = unknown> = {
   $$typeof: typeof STORE_SELECTOR;
   key: string;
-  default?: T | MPromise<T>;
-  get: (store: Store<Record<string, unknown>>) => T | MPromise<T>;
+  default?: T | Promise<T> | MPromise<T>;
+  get: (store: Store<Record<string, unknown>>) => T | Promise<T> | MPromise<T>;
 };
 
 // 先合在一起，好做就做，不好做再拆分，这样使用起来更方便
@@ -132,7 +132,6 @@ function use<T = unknown>(params: StoreSelector<T>): T;
 function use<T = unknown>(
   params: MPromise<T> | StoreAtom<T> | StoreSelector<T>
 ): T | [unknown, SetterAtomState<T>, Store<Record<string, unknown>>] {
-  console.log(params);
   const obj: Record<string, unknown> = {};
   atomMap.forEach((value, key) => {
     if (!(key in obj)) {

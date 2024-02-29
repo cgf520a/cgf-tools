@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin } from 'antd';
 import { useMemoizedFn, useRequest } from 'ahooks';
-import { selectAndSearchComponentMap } from '@cgf-tools/pro-max-components/share';
+import { SelectAndSearchComponentMap } from '@cgf-tools/pro-max-components/share';
 import type {
   ProFormSelectProps,
   ProFormTreeSelectProps,
@@ -9,7 +9,7 @@ import type {
 } from '@cgf-tools/pro-max-components/share';
 
 export type ProFormSearchSelectProps = {
-  type?: keyof typeof selectAndSearchComponentMap;
+  type?: keyof typeof SelectAndSearchComponentMap;
   /**
    * @description: 防抖时间 默认300ms
    */
@@ -38,7 +38,7 @@ const ProFormSearchSelect: React.FC<ProFormSearchSelectProps> = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
-  return React.cloneElement(selectAndSearchComponentMap[type], {
+  return React.cloneElement(SelectAndSearchComponentMap[type], {
     options: data,
     ...others,
     fieldProps: {

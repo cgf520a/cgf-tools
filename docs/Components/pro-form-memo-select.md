@@ -13,7 +13,7 @@ order: 2
 
 ## 基本使用
 
-<!-- <code src="./demos/pro-form-memo-select/demo1.tsx"></code> -->
+<code src="./demos/pro-form-memo-select/demo2.tsx"></code>
 
 | 参数         | 说明                               | 类型                                   | 默认值    | 版本 |
 | ------------ | ---------------------------------- | -------------------------------------- | --------- | ---- |

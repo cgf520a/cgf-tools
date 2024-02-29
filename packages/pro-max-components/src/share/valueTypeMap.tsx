@@ -27,10 +27,10 @@ const valueTypeMap: Record<string, ProRenderFieldPropsType> = {
     render: (text, props) => {
       const { iconProps } = props as any;
       return (
-          <span css={{display:'flex', alignItems:'center'}}>
-            <PhoneIcon {...iconProps} />
-            {text}
-          </span>
+        <span css={{ display: 'flex', alignItems: 'center' }}>
+          <PhoneIcon {...iconProps} />
+          {text}
+        </span>
       );
     },
     renderFormItem: (text, props) => (

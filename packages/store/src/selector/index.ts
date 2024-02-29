@@ -7,7 +7,7 @@ import type { StoreSelector, MPromise } from '../hooks/use';
 
 function selector<T>(options: {
   key: string;
-  get: (store: Store<Record<string, unknown>>) => T | MPromise<T>;
+  get: (store: Store<Record<string, unknown>>) => T | Promise<T> | MPromise<T>;
 }): StoreSelector<T> {
   if (atomMap.has(options.key)) {
     throw new Error(`atom ${options.key} already exists`);
@@ -32,22 +32,17 @@ export function selectorFamily<T>(options: {
   key: string;
   get: (
     params: Parameter | Parameter[]
-  ) => (store: Store<Record<string, unknown>>, ...args: any[]) => T | MPromise<T>;
+  ) => (store: Store<Record<string, unknown>>, ...args: any[]) => T | Promise<T> | MPromise<T>;
 }): (p: Parameter | Parameter[]) => StoreSelector<T> {
-  if (atomMap.has(options.key)) {
-    throw new Error(`atom ${options.key} already exists`);
-  }
-  if (selectorMap.has(options.key)) {
-    throw new Error(`selector ${options.key} already exists`);
-  }
-
   selectorMap.set(options.key, undefined);
 
   let cache = '';
 
   return params => {
     if (cache !== JSON.stringify(params)) {
-      refresh(options.key);
+      if (cache) {
+        refresh(options.key);
+      }
       cache = JSON.stringify(params);
     }
     return {
