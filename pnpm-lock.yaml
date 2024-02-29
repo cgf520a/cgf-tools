@@ -178,10 +178,10 @@ importers:
         specifier: ^2.24.1
         version: 2.24.1(antd@5.13.1)(rc-field-form@1.41.0)(react-dom@16.14.0)(react@16.14.0)
       '@cgf-tools/icons':
-        specifier: ^0.0.1-alpha.0
+        specifier: ^0.0.1
         version: link:../icons
       '@cgf-tools/store':
-        specifier: ^0.0.2-alpha.0
+        specifier: ^0.0.2
         version: link:../store
       '@minko-fe/use-antd-resizable-header':
         specifier: ^2.9.0
@@ -207,9 +207,6 @@ importers:
       react-dom:
         specifier: ^16.8.0
         version: 16.14.0(react@16.14.0)
-      swr:
-        specifier: ^2.2.4
-        version: 2.2.4(react@16.14.0)
 
   packages/store:
     dependencies:
