@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
 import { Spin } from 'antd';
 import { useMemoizedFn, useRequest } from 'ahooks';
 import { SelectAndSearchComponentMap } from '@cgf-tools/pro-max-components/share';
@@ -7,6 +7,12 @@ import type {
   ProFormTreeSelectProps,
   ProFormCascaderProps,
 } from '@cgf-tools/pro-max-components/share';
+
+import type { RequestOptionsType } from '@ant-design/pro-components';
+
+export type ProFormSearchSelectRef = {
+  setOptions: React.Dispatch<React.SetStateAction<RequestOptionsType[] | undefined>>;
+};
 
 export type ProFormSearchSelectProps = {
   type?: keyof typeof SelectAndSearchComponentMap;
@@ -18,9 +24,10 @@ export type ProFormSearchSelectProps = {
   ProFormTreeSelectProps &
   ProFormCascaderProps;
 
-const ProFormSearchSelect: React.FC<ProFormSearchSelectProps> = (
-  props: ProFormSearchSelectProps
-) => {
+const ProFormSearchSelect: React.ForwardRefRenderFunction<
+  ProFormSearchSelectRef,
+  ProFormSearchSelectProps
+> = (props: ProFormSearchSelectProps, ref) => {
   const { type = 'select', request, debounceWait = 300, ...others } = props;
   const fn = useMemoizedFn(async () => Promise.resolve([]));
   const { data, loading, run } = useRequest(request || fn, {
@@ -28,6 +35,7 @@ const ProFormSearchSelect: React.FC<ProFormSearchSelectProps> = (
     debounceWait,
   });
   const [searchValue, setSearchValue] = React.useState('');
+  const [options, setOptions] = React.useState<RequestOptionsType[] | undefined>(undefined);
 
   const handleSearch = useMemoizedFn(v => {
     setSearchValue(v.trim());
@@ -38,8 +46,20 @@ const ProFormSearchSelect: React.FC<ProFormSearchSelectProps> = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
+  React.useEffect(() => {
+    setOptions(data);
+  }, [data]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setOptions,
+    }),
+    []
+  );
+
   return React.cloneElement(SelectAndSearchComponentMap[type], {
-    options: data,
+    options,
     ...others,
     fieldProps: {
       ...others?.fieldProps,
@@ -51,4 +71,4 @@ const ProFormSearchSelect: React.FC<ProFormSearchSelectProps> = (
   });
 };
 
-export default React.memo(ProFormSearchSelect);
+export default React.memo(React.forwardRef(ProFormSearchSelect));

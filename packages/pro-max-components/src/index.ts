@@ -19,7 +19,7 @@ export type { ProMaxStoreProps } from './ProMaxStore';
 export type { ProMaxFieldProps } from './ProMaxField';
 export type { ProFormInputSkeletonProps } from './ProFormInputSkeleton';
 export type { ProFormInputSuspenseProps } from './ProFormInputSuspense';
-export type { ProFormSearchSelectProps } from './ProFormSearchSelect';
+export type { ProFormSearchSelectProps, ProFormSearchSelectRef } from './ProFormSearchSelect';
 export type { ProFormNumberInputProps } from './ProFormNumberInput';
 export type { DividerGroupProps } from './DividerGroup';
 export type { ProFormMemoSelectProps } from './ProFormMemoSelect';

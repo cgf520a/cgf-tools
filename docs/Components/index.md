@@ -36,5 +36,6 @@ group:
 - [ ] ProMax 登录页面级组件，集成企微、手机、微信、帐密等登录功能
 - [ ] ProMaxField 将自定义的valueType类型封装进去
 - [ ] ProMaxTable
+- [ ] 搜索下拉选项要提供可以手动设置options的功能，编辑时要用
 - [x] ProMaxFormItemSkeleton
 - [x] 导入按钮、导出按钮，常用按钮
