@@ -1,13 +1,15 @@
 import React, { useImperativeHandle } from 'react';
 import { Spin } from 'antd';
 import { useMemoizedFn, useRequest } from 'ahooks';
+import { ProForm } from '@ant-design/pro-components';
 import { SelectAndSearchComponentMap } from '@cgf-tools/pro-max-components/share';
+import { useOptionsStoreRef } from '@cgf-tools/pro-max-components/ProMaxTable/hooks';
+
 import type {
   ProFormSelectProps,
   ProFormTreeSelectProps,
   ProFormCascaderProps,
 } from '@cgf-tools/pro-max-components/share';
-
 import type { RequestOptionsType } from '@ant-design/pro-components';
 
 export type ProFormSearchSelectRef = {
@@ -20,6 +22,11 @@ export type ProFormSearchSelectProps = {
    * @description: 防抖时间 默认300ms
    */
   debounceWait?: number;
+  /**
+   * 有value 但没下拉选项时如何处理？
+   * 将值发送给后端获取选项，但具体如何发送由用户自己决定
+   */
+  onNoOptionsButHasValue?: (value: any) => RequestOptionsType[] | void;
 } & ProFormSelectProps &
   ProFormTreeSelectProps &
   ProFormCascaderProps;
@@ -27,8 +34,11 @@ export type ProFormSearchSelectProps = {
 const ProFormSearchSelect: React.ForwardRefRenderFunction<
   ProFormSearchSelectRef,
   ProFormSearchSelectProps
-> = (props: ProFormSearchSelectProps, ref) => {
+> = ({ onNoOptionsButHasValue, ...props }: ProFormSearchSelectProps, ref) => {
+  const form = ProForm.useFormInstance();
   const { type = 'select', request, debounceWait = 300, ...others } = props;
+  const optionsStoreRef = useOptionsStoreRef();
+  const cid = React.useId();
   const fn = useMemoizedFn(async () => Promise.resolve([]));
   const { data, loading, run } = useRequest(request || fn, {
     manual: true,
@@ -58,6 +68,29 @@ const ProFormSearchSelect: React.ForwardRefRenderFunction<
     []
   );
 
+  React.useEffect(() => {
+    if (optionsStoreRef?.current) {
+      optionsStoreRef.current[cid] = {
+        options: options || [],
+        setOptions,
+      };
+    }
+  }, [cid, options, optionsStoreRef]);
+
+  // 有value 但没下拉选项时如何处理？
+  React.useEffect(() => {
+    if (!options || options?.length === 0) {
+      const v = form.getFieldValue(others.name);
+      if (v !== undefined) {
+        // 将值发送给后端获取选项，但具体如何发送由用户自己决定
+        const newOptions = onNoOptionsButHasValue?.(v);
+        if (newOptions) {
+          setOptions(newOptions);
+        }
+      }
+    }
+  }, [form, options, others.name, onNoOptionsButHasValue]);
+
   return React.cloneElement(SelectAndSearchComponentMap[type], {
     options,
     ...others,
@@ -65,8 +98,10 @@ const ProFormSearchSelect: React.ForwardRefRenderFunction<
       ...others?.fieldProps,
       showSearch: true,
       onSearch: handleSearch,
-      notFoundContent: loading ? <Spin /> : null,
+      // notFoundContent: loading ? <Spin /> : null,
+      dropdownRender: (originNode: React.ReactNode) => (loading ? <Spin /> : originNode),
       filterOption: false,
+      loading,
     },
   });
 };

@@ -1,5 +1,4 @@
 export { default as DividerGroup } from './DividerGroup';
-// export { default as ProMaxTable } from './ProMaxTable';
 export { default as ProFormNumberInput } from './ProFormNumberInput';
 export { default as ProMaxProvider, ProMaxProviderContext } from './ProMaxProvider';
 export { default as ProMaxStore, ProMaxStoreContext } from './ProMaxStore';
@@ -23,4 +22,4 @@ export type { ProFormSearchSelectProps, ProFormSearchSelectRef } from './ProForm
 export type { ProFormNumberInputProps } from './ProFormNumberInput';
 export type { DividerGroupProps } from './DividerGroup';
 export type { ProFormMemoSelectProps } from './ProFormMemoSelect';
-export type { ProMaxTableProps } from './ProMaxTable';
+export type * from './ProMaxTable/type.d';

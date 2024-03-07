@@ -15,9 +15,10 @@ order: 2
 
 <code src="./demos/pro-form-search-select/demo1.tsx"></code>
 
-| 参数         | 说明           | 类型                                   | 默认值   | 版本 |
-| ------------ | -------------- | -------------------------------------- | -------- | ---- |
-| type         | 组件类型       | 'select' \| 'treeSelect' \| 'cascader' | 'select' | -    |
-| debounceWait | 防抖时间（ms） | number                                 | 300      | -    |
+| 参数                   | 说明                                     | 类型                                          | 默认值   | 版本 |
+| ---------------------- | ---------------------------------------- | --------------------------------------------- | -------- | ---- |
+| type                   | 组件类型                                 | 'select' \| 'treeSelect' \| 'cascader'        | 'select' | -    |
+| debounceWait           | 防抖时间（ms）                           | number                                        | 300      | -    |
+| onNoOptionsButHasValue | 有值但没有下拉选项的回调，用于设置下拉项 | (value: any) => RequestOptionsType[] \| void; | -        | -    |
 
 其他属性跟`ProFormSelect、ProFormTreeSelect、ProFormCascader`是一样的

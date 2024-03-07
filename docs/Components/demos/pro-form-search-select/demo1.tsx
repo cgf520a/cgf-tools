@@ -51,6 +51,9 @@ const Demo: React.FC<DemoProps> = () => {
         onFinish={async v => {
           console.log(v);
         }}
+        initialValues={{
+          user: 1,
+        }}
       >
         <ProFormSearchSelect
           ref={ref}
@@ -59,6 +62,15 @@ const Demo: React.FC<DemoProps> = () => {
           name="user"
           placeholder="请输入内容搜索"
           request={request}
+          onNoOptionsButHasValue={v => {
+            console.log(v);
+            return [
+              {
+                label: '测试5',
+                value: v,
+              },
+            ];
+          }}
         />
       </ProForm>
     </>

@@ -34,7 +34,11 @@ const CustomSvg = (props: any) => (
   </Tooltip>
 );
 
-const CustomIcon = (props: Partial<CustomIconComponentProps>) => {
+const CustomIcon = (
+  props: Partial<CustomIconComponentProps> & {
+    onClick?: () => void;
+  }
+) => {
   return <Icon component={CustomSvg} {...props} />;
 };
 

@@ -3,9 +3,7 @@ import { ModalForm, ProFormUploadDragger } from '@ant-design/pro-components';
 import { ImportOutlined } from '@ant-design/icons';
 import { Button, App, Typography, Alert, Tooltip } from 'antd';
 import { useMemoizedFn } from 'ahooks';
-
 import type { ButtonProps } from 'antd';
-import type { ProFormUploadDraggerProps } from '@ant-design/pro-components';
 
 const fieldProps = {
   maxCount: 1,
@@ -36,28 +34,24 @@ const DownLoadTemplate = ({ url }: { url: string }) => {
 export interface ImportButtonProps {
   buttonProps?: ButtonProps;
   text?: string;
-  title?: string;
   /**
    * 导入模板下载地址
    */
   importTemplateUrl?: string;
   onImport?: (formData: FormData) => Promise<boolean>;
-  uploadDraggerProps?: ProFormUploadDraggerProps;
 }
 
 const ImportButton: React.FC<ImportButtonProps> = ({
   buttonProps,
   text = '导入',
-  title,
   importTemplateUrl,
   onImport,
-  uploadDraggerProps,
 }: ImportButtonProps) => {
   const { message } = App.useApp();
 
-  const handleFinish = useMemoizedFn(async values => {
+  const handleFinish = useMemoizedFn(async (values) => {
     const { file } = values;
-    if (file?.length > 0) {
+    if (file.length > 0) {
       const formData = new FormData();
       formData.append('file', file[0].originFileObj);
       const bool = await onImport?.(formData);
@@ -75,7 +69,7 @@ const ImportButton: React.FC<ImportButtonProps> = ({
     <ModalForm<{
       file: any;
     }>
-      title={title || text}
+      title="导入"
       trigger={
         <Button type="primary" icon={<ImportOutlined />} {...buttonProps}>
           {text}
@@ -103,11 +97,7 @@ const ImportButton: React.FC<ImportButtonProps> = ({
       <ProFormUploadDragger
         name="file"
         description="单次仅支持一个文件上传"
-        {...uploadDraggerProps}
-        fieldProps={{
-          ...fieldProps,
-          ...uploadDraggerProps?.fieldProps,
-        }}
+        fieldProps={fieldProps}
       />
     </ModalForm>
   );
