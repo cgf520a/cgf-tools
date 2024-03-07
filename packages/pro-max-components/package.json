@@ -1,6 +1,6 @@
 {
   "name": "@cgf-tools/pro-max-components",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "基于antd生态的加强组件库",
   "keywords": [
     "pro-max-components"
@@ -38,7 +38,7 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@cgf-tools/icons": "^0.0.1",
+    "@cgf-tools/icons": "^0.0.2",
     "@cgf-tools/store": "^0.0.2"
   },
   "gitHead": "3fd03c845ca707a6db114bb2f5297936c9a8de7a"
