@@ -26,7 +26,7 @@ export type ProFormSearchSelectProps = {
    * 有value 但没下拉选项时如何处理？
    * 将值发送给后端获取选项，但具体如何发送由用户自己决定
    */
-  onNoOptionsButHasValue?: (value: any) => RequestOptionsType[] | void;
+  onNoOptionsButHasValue?: (value: any) => Promise<RequestOptionsType[] | undefined>;
 } & ProFormSelectProps &
   ProFormTreeSelectProps &
   ProFormCascaderProps;
@@ -77,19 +77,23 @@ const ProFormSearchSelect: React.ForwardRefRenderFunction<
     }
   }, [cid, options, optionsStoreRef]);
 
+  const getOptions = useMemoizedFn(async v => {
+    // 将值发送给后端获取选项，但具体如何发送由用户自己决定
+    const newOptions = await onNoOptionsButHasValue?.(v);
+    if (newOptions) {
+      setOptions(newOptions);
+    }
+  });
+
   // 有value 但没下拉选项时如何处理？
   React.useEffect(() => {
     if (!options || options?.length === 0) {
       const v = form.getFieldValue(others.name);
       if (v !== undefined) {
-        // 将值发送给后端获取选项，但具体如何发送由用户自己决定
-        const newOptions = onNoOptionsButHasValue?.(v);
-        if (newOptions) {
-          setOptions(newOptions);
-        }
+        getOptions(v);
       }
     }
-  }, [form, options, others.name, onNoOptionsButHasValue]);
+  }, [form, options, others.name, onNoOptionsButHasValue, getOptions]);
 
   return React.cloneElement(SelectAndSearchComponentMap[type], {
     options,

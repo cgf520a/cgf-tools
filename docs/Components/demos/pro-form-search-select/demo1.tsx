@@ -62,11 +62,10 @@ const Demo: React.FC<DemoProps> = () => {
           name="user"
           placeholder="请输入内容搜索"
           request={request}
-          onNoOptionsButHasValue={v => {
-            console.log(v);
+          onNoOptionsButHasValue={async v => {
             return [
               {
-                label: '测试5',
+                label: '测试6',
                 value: v,
               },
             ];
