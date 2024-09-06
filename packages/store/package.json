@@ -1,6 +1,6 @@
 {
   "name": "@cgf-tools/store",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "基于resso的扩展状态管理库",
   "keywords": [
     "状态管理"

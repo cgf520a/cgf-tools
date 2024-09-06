@@ -181,7 +181,7 @@ importers:
         specifier: ^0.0.2
         version: link:../icons
       '@cgf-tools/store':
-        specifier: ^0.0.2
+        specifier: ^0.0.3
         version: link:../store
       '@minko-fe/use-antd-resizable-header':
         specifier: ^2.9.0
