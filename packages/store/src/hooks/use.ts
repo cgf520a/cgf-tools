@@ -1,5 +1,4 @@
 import createStore from '../index';
-import logger from 'redux-logger';
 import type { Store } from '../index';
 import atomMap from './atomMap';
 import selectorMap from './selectorMap';
@@ -144,9 +143,6 @@ function use<T = unknown>(
     }
   });
   if (store === null) {
-    if (process.env.NODE_ENV === 'development') {
-      createStore.applyMiddlewares([logger as any]);
-    }
     store = createStore<Record<string, unknown>>(obj);
   } else {
     // store存在时，某些未注册的状态，需要注册到store中
